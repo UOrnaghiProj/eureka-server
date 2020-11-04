@@ -1,41 +1,40 @@
 # ==============================================================
-# = Eureka SERVER
+# = Discovery Service Eureka Server
 # = Dash: http://localhost:8761
 # ==============================================================
 
 server:
   port: 8761
   tomcat:
-    threads:
-      max: 5
-      
+    max-threads: 5
+    
 # ==============================================================
-# = Eureka SERVER
-# = PARAMETERS
-# ==============================================================
-
+# = Eureka Parameters
+# ==============================================================  
 eureka:
   instance:
     hostname: localhost
-    #Di default viene utilizzato il nome del servizio
-    prefer-ip-address: true
+    #Specifica se la registrazione avviene tramite ip
+    preferIpAddress: true
 # ==============================================================
-# = Eureka SERVER
-# = Impostazioni server
-# ==============================================================
+# = Impostazione Server
+# ==============================================================      
   server:
-    enable-self-preservation: false
-    response-cache-update-interval-ms: 30000
-    eviction-interval-timer-in-ms: 30000
-    wait-time-in-ms-when-sync-empty: 5
+    #Abilita o disabilita l'auto preservazione
+    enableSelfPreservation: true
+    #Durata (in ms) della cache
+    responseCacheUpdateIntervalMs: 60000
+    #Tempo di attesa in ms di deregistrazione del servizio (def 60000)
+    evictionIntervalTimerInMs: 30000
+    #Tempo di attesa (in secondi) prima di accettare richieste
+    waitTimeInMsWhenSyncEmpty: 5
 # ==============================================================
-# = Eureka SERVER
-# = Impostazioni client
-# ==============================================================
+# = Impostazione Client
+# ==============================================================  
   client:
-    register-with-eureka: false
-    fetch-registry: false
-    service-url:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
-   
-      
+    #Un Servizio Eureka è escluso dalla registrazione in Eureka
+    registerWithEureka: false
+    #Non esegue la cache in locale 
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/  
